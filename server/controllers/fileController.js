@@ -7,9 +7,10 @@ const fileUpload = async (req, res) => {
   };
   try {
     const file = await File.create(fileObj);
+    const baseUrl=process.env.NODE_ENV==="production"?`https://file-share-8i1y.onrender.com`:`http://localhost:5000`;
     return res
       .status(200)
-      .json({ path:process.env.NODE_ENV==="production"?`https://file-share-8i1y.onrender.com`:`http://localhost:5000/api/files/${file._id}` });
+      .json({ path: `${baseUrl}/api/files/${file._id}`});
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Error uploading file" });
