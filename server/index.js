@@ -7,9 +7,14 @@ const cors = require("cors");
 const app = express();
 dbConnect();
 const PORT = process.env.PORT || 5000;
+const corsOptions = {
+  origin: process.env.NODE_ENV === "production" ? "https://file-share-1-ykqs.onrender.com" : "*",
+  methods: "GET,POST,PUT,DELETE",
+  credentials: true,
+};
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use("/api", router);
 app.listen(PORT, () => {
